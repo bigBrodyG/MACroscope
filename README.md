@@ -1,6 +1,27 @@
 # MACroscope
 
-Parser di frame ethernet di livello 2
+Parser di frame ethernet di livello 2 - **FASE 2 Completata**
+
+## Implementazione
+
+Il progetto è stato implementato seguendo le specifiche del professore per la **FASE 2**, utilizzando:
+
+- Struttura modulare con file separati (`eth_frame.h/c`, `tables.h/c`, `main.c`)
+- Strutture dati del professore (`payload_t`, `mac_addr_t`, `eth_frame_t`, etc.)
+- Tabelle di lookup per OUI (produttori MAC), SAP (LLC) ed Ethertype
+- Supporto per lettura da file o stdin con gestione commenti
+
+### Struttura dei file
+
+```
+eth_frame.h    - Tipi di dati e prototipi per parsing Ethernet/LLC/SNAP
+eth_frame.c    - Implementazione funzioni parsing e stampa
+tables.h       - Prototipi per lookup OUI/SAP/Ethertype
+tables.c       - Tabelle statiche di lookup
+main.c         - Programma principale
+frames.txt     - File di test con frame di esempio
+Makefile       - Build automation
+```
 
 ## Richiesta
 
@@ -78,15 +99,109 @@ Frame totale: 42 byte
 ## Come usarlo
 
 Compilare ed eseguire il programma su sistemi Unix-like:
+
+### Compilazione
+
+#### Linux (nativo)
 ```bash
-make
-./macroscope
+make              # Compila per Linux
+make run          # Compila ed esegue con frames.txt
 ```
 
-Oppure su Windows:
-```powershell
-C:\Users\admin> macroscope.exe
+#### Windows (cross-compilation con MinGW)
+```bash
+make windows      # Compila macroscope.exe per Windows
 ```
+
+#### Entrambe le piattaforme
+```bash
+make all-platforms   # Compila sia Linux che Windows
+```
+
+### Pulizia
+```bash
+make clean        # Rimuove tutti gli eseguibili (Linux + Windows)
+make win-clean    # Rimuove solo l'eseguibile Windows
+```
+
+### Esecuzione
+
+#### Su Linux
+```bash
+# Con file di test
+./macroscope frames.txt
+
+# Da input tastiera
+./macroscope
+
+# Con help
+./macroscope --help
+
+# Con pipe
+echo "AA BB CC DD EE FF 00 11 22 33 44 55 08 00 ..." | ./macroscope
+```
+
+#### Su Windows
+```cmd
+REM Con file di test
+macroscope.exe frames.txt
+
+REM Da input tastiera
+macroscope.exe
+
+REM Con help
+macroscope.exe --help
+```
+
+### Requisiti per cross-compilation Windows
+
+Per compilare l'eseguibile Windows su Linux è necessario MinGW:
+
+**Debian/Ubuntu:**
+```bash
+sudo apt install mingw-w64
+```
+
+**Arch Linux:**
+```bash
+sudo pacman -S mingw-w64-gcc
+```
+
+**Fedora:**
+```bash
+sudo dnf install mingw64-gcc
+```
+
+## Funzionalità FASE 2
+
+✅ Lettura frame da file di testo o stdin  
+✅ Conversione stringa esadecimale → byte buffer  
+✅ Parsing header Ethernet (MAC dst/src, Ethertype)  
+✅ Decodifica MAC con rilevamento Broadcast/Multicast/Unicast  
+✅ Lookup OUI per identificazione produttore  
+✅ Riconoscimento tipo frame (Ethernet II / 802.3 LLC / 802.3 SNAP)  
+✅ Parsing LLC (DSAP, SSAP, Control)  
+✅ Parsing SNAP (OUI, Protocol ID)  
+✅ Lookup SAP per protocolli LLC  
+✅ Lookup Ethertype per protocollo incapsulato  
+✅ Gestione commenti e righe vuote nei file di input  
+✅ Interfaccia CLI con help (`-h`, `--help`)  
+✅ Compilazione per Linux e Windows (cross-platform)  
+
+## Tipi di Frame Supportati
+
+| Tipo | Identificazione | Descrizione |
+|------|----------------|-------------|
+| **Ethernet II** | Type/Length ≥ 0x0600 | Frame standard con Ethertype |
+| **802.3 LLC** | Type/Length < 0x0600 | Frame IEEE 802.3 con LLC header |
+| **802.3 SNAP** | LLC con DSAP=SSAP=0xAA | Frame 802.3 con SNAP encapsulation |
+
+## File di Test
+
+Il file `frames.txt` contiene 9 frame di esempio:
+- 4 frame Ethernet II (ARP, IPv4, ICMP, IPv6)
+- 2 frame 802.3 LLC (NetBIOS, Spanning Tree)
+- 3 frame 802.3 SNAP (IPv4, ARP, AppleTalk)
 
 ## Licenza
 
