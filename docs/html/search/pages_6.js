@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['licenza_0',['Licenza',['../index.html#autotoc_md14',1,'']]],
-  ['lookup_5fethertype_1',['lookup_ethertype',['../ethernet__frame_8c.html#autotoc_md0',1,'']]]
+  ['ii_0',['Struttura del frame Ethernet II',['../index.html#autotoc_md3',1,'']]],
+  ['input_20per_20test_1',['Esempi di input (per test)',['../index.html#autotoc_md5',1,'']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['come_20usarlo_0',['Come usarlo',['../index.html#autotoc_md13',1,'']]]
+  ['2_0',['Funzionalità FASE 2',['../index.html#autotoc_md15',1,'']]]
 ];

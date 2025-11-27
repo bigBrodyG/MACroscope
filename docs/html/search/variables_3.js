@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['name_0',['name',['../structEthString.html#a99ad9f9b61b3236ae3ff2b31896257ad',1,'EthString']]]
+  ['frame_5ftype_0',['frame_type',['../structeth__frame__t.html#a7e784767baec024677817c9dbd3168e5',1,'eth_frame_t']]]
 ];

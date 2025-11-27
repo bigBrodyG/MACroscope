@@ -1,0 +1,393 @@
+\doxysection{eth\+\_\+frame.\+h File Reference}
+\hypertarget{eth__frame_8h}{}\label{eth__frame_8h}\index{eth\_frame.h@{eth\_frame.h}}
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$stddef.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$ctype.\+h$>$}\newline
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structpayload__t}{payload\+\_\+t}}
+\item 
+struct \mbox{\hyperlink{structmac__addr__t}{mac\+\_\+addr\+\_\+t}}
+\item 
+struct \mbox{\hyperlink{structeth__frame__t}{eth\+\_\+frame\+\_\+t}}
+\item 
+struct \mbox{\hyperlink{structllc__pdu__t}{llc\+\_\+pdu\+\_\+t}}
+\item 
+struct \mbox{\hyperlink{structsnap__pdu__t}{snap\+\_\+pdu\+\_\+t}}
+\item 
+struct \mbox{\hyperlink{structproto__desc__t}{proto\+\_\+desc\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{eth__frame_8h_ae0e4f721cd51e9fb133da7315c1faf14}{frame\+\_\+type\+\_\+t}} \{ \mbox{\hyperlink{eth__frame_8h_ae0e4f721cd51e9fb133da7315c1faf14a1fc6e62cfb004d03bb9f5912412b484d}{ETH\+\_\+\+KIND\+\_\+\+ETHERNET\+\_\+\+II}}
+, \mbox{\hyperlink{eth__frame_8h_ae0e4f721cd51e9fb133da7315c1faf14a2002087239fc0b8a5dcb024545521190}{ETH\+\_\+\+KIND\+\_\+8023\+\_\+\+LLC}}
+, \mbox{\hyperlink{eth__frame_8h_ae0e4f721cd51e9fb133da7315c1faf14a8322065c71b63ff22605b8cc92dc0ed2}{ETH\+\_\+\+KIND\+\_\+8023\+\_\+\+SNAP}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{eth__frame_8h_ae79f51be6c54098d24792ff4cce809f4}{hex\+\_\+to\+\_\+bytes}} (const char \texorpdfstring{$\ast$}{*}hex, uint8\+\_\+t \texorpdfstring{$\ast$}{*}buf, size\+\_\+t bufsize)
+\begin{DoxyCompactList}\small\item\em hex to byte buffer \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{eth__frame_8h_af49e8925af247ae79ab7b4e2ed92176c}{read\+\_\+frame\+\_\+from\+\_\+text\+\_\+file}} (FILE \texorpdfstring{$\ast$}{*}fp, uint8\+\_\+t \texorpdfstring{$\ast$}{*}buf, size\+\_\+t bufsize)
+\begin{DoxyCompactList}\small\item\em read frame from file in hex \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{eth__frame_8h_a5aa003fad59a0e44a1caf05eb139d6df}{parse\+\_\+ethernet}} (const \mbox{\hyperlink{structpayload__t}{payload\+\_\+t}} \texorpdfstring{$\ast$}{*}buf, \mbox{\hyperlink{structeth__frame__t}{eth\+\_\+frame\+\_\+t}} \texorpdfstring{$\ast$}{*}eth)
+\begin{DoxyCompactList}\small\item\em parsa primi 14 byte come header Ethernet \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{eth__frame_8h_ad0f4ce9505ec41f77cb91a6a4af397c3}{parse\+\_\+llc}} (\mbox{\hyperlink{structpayload__t}{payload\+\_\+t}} \texorpdfstring{$\ast$}{*}raw, \mbox{\hyperlink{structllc__pdu__t}{llc\+\_\+pdu\+\_\+t}} \texorpdfstring{$\ast$}{*}llc)
+\begin{DoxyCompactList}\small\item\em parso PDU LLC (Logical Link Control) \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{eth__frame_8h_a0420d8f0fc06e0dedbbb5a44d161125b}{parse\+\_\+snap}} (\mbox{\hyperlink{structpayload__t}{payload\+\_\+t}} \texorpdfstring{$\ast$}{*}raw, \mbox{\hyperlink{structsnap__pdu__t}{snap\+\_\+pdu\+\_\+t}} \texorpdfstring{$\ast$}{*}snap)
+\begin{DoxyCompactList}\small\item\em parsa header SNAP (Sub\+Network Access Protocol) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{eth__frame_8h_ab64b96624f0dc6128e5466e43a274935}{print\+\_\+mac}} (const \mbox{\hyperlink{structmac__addr__t}{mac\+\_\+addr\+\_\+t}} \texorpdfstring{$\ast$}{*}mac, char separator, int decode)
+\begin{DoxyCompactList}\small\item\em stampa MAC con decodifica opzionale \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{eth__frame_8h_a044fa2e21c1df10afca1642efc8a81b4}{print\+\_\+eth\+\_\+summary}} (const \mbox{\hyperlink{structeth__frame__t}{eth\+\_\+frame\+\_\+t}} \texorpdfstring{$\ast$}{*}eth)
+\begin{DoxyCompactList}\small\item\em stampa il riepilogo completo di un frame Ethernet \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{eth__frame_8h_a33b06d191d18374870d525d453c188b6}{print\+\_\+llc\+\_\+summary}} (const \mbox{\hyperlink{structllc__pdu__t}{llc\+\_\+pdu\+\_\+t}} \texorpdfstring{$\ast$}{*}llc)
+\begin{DoxyCompactList}\small\item\em stampa riepilogo PDU LLC \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{eth__frame_8h_a92ffbb3871e3028667f7f28c79a4c473}{print\+\_\+snap\+\_\+summary}} (const \mbox{\hyperlink{structsnap__pdu__t}{snap\+\_\+pdu\+\_\+t}} \texorpdfstring{$\ast$}{*}snap)
+\begin{DoxyCompactList}\small\item\em stampa riepilogo PDU SNAP \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\label{doc-enum-members}
+\Hypertarget{eth__frame_8h_doc-enum-members}
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{eth__frame_8h_ae0e4f721cd51e9fb133da7315c1faf14}\index{eth\_frame.h@{eth\_frame.h}!frame\_type\_t@{frame\_type\_t}}
+\index{frame\_type\_t@{frame\_type\_t}!eth\_frame.h@{eth\_frame.h}}
+\doxysubsubsection{\texorpdfstring{frame\_type\_t}{frame\_type\_t}}
+{\footnotesize\ttfamily \label{eth__frame_8h_ae0e4f721cd51e9fb133da7315c1faf14} 
+enum \mbox{\hyperlink{eth__frame_8h_ae0e4f721cd51e9fb133da7315c1faf14}{frame\+\_\+type\+\_\+t}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ETH\_KIND\_ETHERNET\_II@{ETH\_KIND\_ETHERNET\_II}!eth\_frame.h@{eth\_frame.h}}\index{eth\_frame.h@{eth\_frame.h}!ETH\_KIND\_ETHERNET\_II@{ETH\_KIND\_ETHERNET\_II}}}\Hypertarget{eth__frame_8h_ae0e4f721cd51e9fb133da7315c1faf14a1fc6e62cfb004d03bb9f5912412b484d}\label{eth__frame_8h_ae0e4f721cd51e9fb133da7315c1faf14a1fc6e62cfb004d03bb9f5912412b484d} 
+ETH\+\_\+\+KIND\+\_\+\+ETHERNET\+\_\+\+II&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ETH\_KIND\_8023\_LLC@{ETH\_KIND\_8023\_LLC}!eth\_frame.h@{eth\_frame.h}}\index{eth\_frame.h@{eth\_frame.h}!ETH\_KIND\_8023\_LLC@{ETH\_KIND\_8023\_LLC}}}\Hypertarget{eth__frame_8h_ae0e4f721cd51e9fb133da7315c1faf14a2002087239fc0b8a5dcb024545521190}\label{eth__frame_8h_ae0e4f721cd51e9fb133da7315c1faf14a2002087239fc0b8a5dcb024545521190} 
+ETH\+\_\+\+KIND\+\_\+8023\+\_\+\+LLC&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ETH\_KIND\_8023\_SNAP@{ETH\_KIND\_8023\_SNAP}!eth\_frame.h@{eth\_frame.h}}\index{eth\_frame.h@{eth\_frame.h}!ETH\_KIND\_8023\_SNAP@{ETH\_KIND\_8023\_SNAP}}}\Hypertarget{eth__frame_8h_ae0e4f721cd51e9fb133da7315c1faf14a8322065c71b63ff22605b8cc92dc0ed2}\label{eth__frame_8h_ae0e4f721cd51e9fb133da7315c1faf14a8322065c71b63ff22605b8cc92dc0ed2} 
+ETH\+\_\+\+KIND\+\_\+8023\+\_\+\+SNAP&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\label{doc-func-members}
+\Hypertarget{eth__frame_8h_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{eth__frame_8h_ae79f51be6c54098d24792ff4cce809f4}\index{eth\_frame.h@{eth\_frame.h}!hex\_to\_bytes@{hex\_to\_bytes}}
+\index{hex\_to\_bytes@{hex\_to\_bytes}!eth\_frame.h@{eth\_frame.h}}
+\doxysubsubsection{\texorpdfstring{hex\_to\_bytes()}{hex\_to\_bytes()}}
+{\footnotesize\ttfamily \label{eth__frame_8h_ae79f51be6c54098d24792ff4cce809f4} 
+int hex\+\_\+to\+\_\+bytes (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{hex}{, }\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{buf}{, }\item[{size\+\_\+t}]{bufsize}{}\end{DoxyParamCaption})}
+
+
+
+hex to byte buffer 
+
+Converte una stringa esadecimale in un buffer di byte. 
+\begin{DoxyParams}{Parameters}
+{\em hex} & \+: stringa ASCII (senza 0x, con spazi) \\
+\hline
+{\em buf} & \+: buffer di output \\
+\hline
+{\em bufsize} & \+: dimensione massima di buf\\
+\hline
+\end{DoxyParams}
+Ritorna len (numero di byte scritti in buf) se OK, -\/1 se\+:
+\begin{DoxyItemize}
+\item lunghezza stringa dispari
+\item caratteri non validi
+\item bufsize insufficiente
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}{Parameters}
+{\em hex} & ASCII con hex (0-\/9, a-\/f, A-\/F) \\
+\hline
+{\em buf} & buffer per i byte \\
+\hline
+{\em bufsize} & max size buffer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int byte scritti se ok, -\/1 se errore 
+\end{DoxyReturn}
+\Hypertarget{eth__frame_8h_a5aa003fad59a0e44a1caf05eb139d6df}\index{eth\_frame.h@{eth\_frame.h}!parse\_ethernet@{parse\_ethernet}}
+\index{parse\_ethernet@{parse\_ethernet}!eth\_frame.h@{eth\_frame.h}}
+\doxysubsubsection{\texorpdfstring{parse\_ethernet()}{parse\_ethernet()}}
+{\footnotesize\ttfamily \label{eth__frame_8h_a5aa003fad59a0e44a1caf05eb139d6df} 
+int parse\+\_\+ethernet (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structpayload__t}{payload\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{buf}{, }\item[{\mbox{\hyperlink{structeth__frame__t}{eth\+\_\+frame\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{eth}{}\end{DoxyParamCaption})}
+
+
+
+parsa primi 14 byte come header Ethernet 
+
+Interpreta i primi 14 byte di raw come header Ethernet. 
+\begin{DoxyParams}{Parameters}
+{\em buf} & \+: passo il frame completo (L2 + payload) per indirizzo. Perchè non per copia? \\
+\hline
+{\em eth} & \+: header Ethernet + payload successivo\\
+\hline
+\end{DoxyParams}
+Ritorna len se OK, -\/1 se raw-\/\texorpdfstring{$>$}{>}len \texorpdfstring{$<$}{<} 14 (unico controllo di integrità).
+
+NOTA\+:
+\begin{DoxyItemize}
+\item eth-\/\texorpdfstring{$>$}{>}payload punta al primo byte dopo l\textquotesingle{}header Ethernet.
+\item tipo viene inizializzato in base a type\+\_\+or\+\_\+len (\texorpdfstring{$>$}{>}=0x0600 o \texorpdfstring{$<$}{<}=1500).
+\item la distinzione LLC / SNAP vera e propria avverrà guardando i campi LLC.
+\end{DoxyItemize}
+
+estrae MAC dest/src, type/len, inizializza \doxylink{structpayload__t}{payload\+\_\+t} deduce tipo frame (Ethernet II se type\+\_\+or\+\_\+len \texorpdfstring{$>$}{>}= 0x0600, altrimenti 802.\+3)
+
+
+\begin{DoxyParams}{Parameters}
+{\em buf} & puntatore a buffer completo (L2 + payload) \\
+\hline
+{\em eth} & struttura dove salvare header parsato \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int lunghezza totale se ok, -\/1 se buffer troppo corto (\texorpdfstring{$<$}{<} 14 byte) 
+\end{DoxyReturn}
+\Hypertarget{eth__frame_8h_ad0f4ce9505ec41f77cb91a6a4af397c3}\index{eth\_frame.h@{eth\_frame.h}!parse\_llc@{parse\_llc}}
+\index{parse\_llc@{parse\_llc}!eth\_frame.h@{eth\_frame.h}}
+\doxysubsubsection{\texorpdfstring{parse\_llc()}{parse\_llc()}}
+{\footnotesize\ttfamily \label{eth__frame_8h_ad0f4ce9505ec41f77cb91a6a4af397c3} 
+int parse\+\_\+llc (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structpayload__t}{payload\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{raw}{, }\item[{\mbox{\hyperlink{structllc__pdu__t}{llc\+\_\+pdu\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{llc}{}\end{DoxyParamCaption})}
+
+
+
+parso PDU LLC (Logical Link Control) 
+
+Decodifica un PDU LLC all\textquotesingle{}inizio di raw.
+\begin{DoxyItemize}
+\item raw \+: deve iniziare dal primo byte LLC (DSAP)
+\item llc \+: header LLC + payload interno
+\end{DoxyItemize}
+
+Ritorna len se OK, -\/1 se raw-\/\texorpdfstring{$>$}{>}len \texorpdfstring{$<$}{<} 3.
+
+NOTA\+:
+\begin{DoxyItemize}
+\item llc-\/\texorpdfstring{$>$}{>}payload parte dal byte successivo ai 3 byte LLC.
+\end{DoxyItemize}
+
+estraggo DSAP, SSAP, control byte e payload successivo (FASE 2 -\/ stub)
+
+
+\begin{DoxyParams}{Parameters}
+{\em raw} & puntatore a dati da parsare (deve iniziare da primo byte LLC) \\
+\hline
+{\em llc} & struttura dove salvo header LLC parsato \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int 0 se ok, -\/1 se buffer troppo corto (\texorpdfstring{$<$}{<} 3 byte) 
+\end{DoxyReturn}
+\Hypertarget{eth__frame_8h_a0420d8f0fc06e0dedbbb5a44d161125b}\index{eth\_frame.h@{eth\_frame.h}!parse\_snap@{parse\_snap}}
+\index{parse\_snap@{parse\_snap}!eth\_frame.h@{eth\_frame.h}}
+\doxysubsubsection{\texorpdfstring{parse\_snap()}{parse\_snap()}}
+{\footnotesize\ttfamily \label{eth__frame_8h_a0420d8f0fc06e0dedbbb5a44d161125b} 
+int parse\+\_\+snap (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structpayload__t}{payload\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{raw}{, }\item[{\mbox{\hyperlink{structsnap__pdu__t}{snap\+\_\+pdu\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{snap}{}\end{DoxyParamCaption})}
+
+
+
+parsa header SNAP (Sub\+Network Access Protocol) 
+
+Decodifica un header SNAP all\textquotesingle{}inizio di raw.
+\begin{DoxyItemize}
+\item raw \+: deve iniziare dal primo byte OUI
+\item snap \+: header SNAP + payload interno
+\end{DoxyItemize}
+
+Ritorna 0 se OK, -\/1 se raw-\/\texorpdfstring{$>$}{>}len \texorpdfstring{$<$}{<} 5.
+
+NOTA\+:
+\begin{DoxyItemize}
+\item snap-\/\texorpdfstring{$>$}{>}payload parte dal byte successivo all\textquotesingle{}header SNAP (5 byte).
+\end{DoxyItemize}
+
+estraggo OUI (3 byte), protocol\+\_\+id (2 byte) e payload successivo
+
+
+\begin{DoxyParams}{Parameters}
+{\em raw} & puntatore a dati da parsare (deve iniziare da primo byte SNAP) \\
+\hline
+{\em snap} & struttura dove salvo header SNAP parsato \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int 0 se ok, -\/1 se buffer troppo corto (\texorpdfstring{$<$}{<} 5 byte) 
+\end{DoxyReturn}
+\Hypertarget{eth__frame_8h_a044fa2e21c1df10afca1642efc8a81b4}\index{eth\_frame.h@{eth\_frame.h}!print\_eth\_summary@{print\_eth\_summary}}
+\index{print\_eth\_summary@{print\_eth\_summary}!eth\_frame.h@{eth\_frame.h}}
+\doxysubsubsection{\texorpdfstring{print\_eth\_summary()}{print\_eth\_summary()}}
+{\footnotesize\ttfamily \label{eth__frame_8h_a044fa2e21c1df10afca1642efc8a81b4} 
+void print\+\_\+eth\+\_\+summary (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structeth__frame__t}{eth\+\_\+frame\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{eth}{}\end{DoxyParamCaption})}
+
+
+
+stampa il riepilogo completo di un frame Ethernet 
+
+Stampa il riepilogo dell\textquotesingle{}header Ethernet.
+
+
+\begin{DoxyParams}{Parameters}
+{\em eth} & Puntatore alla struttura \doxylink{structeth__frame__t}{eth\+\_\+frame\+\_\+t} da stampare\\
+\hline
+\end{DoxyParams}
+mostra MAC destinazione/sorgente (con decodifica), Type/\+Length, tipo di frame e dimensione payload
+
+
+\begin{DoxyParams}{Parameters}
+{\em eth} & puntatore alla struttura \doxylink{structeth__frame__t}{eth\+\_\+frame\+\_\+t} da stampare \\
+\hline
+\end{DoxyParams}
+\Hypertarget{eth__frame_8h_a33b06d191d18374870d525d453c188b6}\index{eth\_frame.h@{eth\_frame.h}!print\_llc\_summary@{print\_llc\_summary}}
+\index{print\_llc\_summary@{print\_llc\_summary}!eth\_frame.h@{eth\_frame.h}}
+\doxysubsubsection{\texorpdfstring{print\_llc\_summary()}{print\_llc\_summary()}}
+{\footnotesize\ttfamily \label{eth__frame_8h_a33b06d191d18374870d525d453c188b6} 
+void print\+\_\+llc\+\_\+summary (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structllc__pdu__t}{llc\+\_\+pdu\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{llc}{}\end{DoxyParamCaption})}
+
+
+
+stampa riepilogo PDU LLC 
+
+Stampa il riepilogo del PDU LLC.
+
+
+\begin{DoxyParams}{Parameters}
+{\em llc} & Puntatore alla struttura \doxylink{structllc__pdu__t}{llc\+\_\+pdu\+\_\+t} da stampare\\
+\hline
+\end{DoxyParams}
+mostro DSAP, SSAP (con lookup nome) e control byte
+
+
+\begin{DoxyParams}{Parameters}
+{\em llc} & puntatore a struttura \doxylink{structllc__pdu__t}{llc\+\_\+pdu\+\_\+t} da stampare \\
+\hline
+\end{DoxyParams}
+\Hypertarget{eth__frame_8h_ab64b96624f0dc6128e5466e43a274935}\index{eth\_frame.h@{eth\_frame.h}!print\_mac@{print\_mac}}
+\index{print\_mac@{print\_mac}!eth\_frame.h@{eth\_frame.h}}
+\doxysubsubsection{\texorpdfstring{print\_mac()}{print\_mac()}}
+{\footnotesize\ttfamily \label{eth__frame_8h_ab64b96624f0dc6128e5466e43a274935} 
+void print\+\_\+mac (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structmac__addr__t}{mac\+\_\+addr\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{mac}{, }\item[{char}]{separator}{, }\item[{int}]{decode}{}\end{DoxyParamCaption})}
+
+
+
+stampa MAC con decodifica opzionale 
+
+Stampa un indirizzo MAC nel formato configurabile.
+
+
+\begin{DoxyParams}{Parameters}
+{\em mac} & Puntatore all\textquotesingle{}indirizzo MAC da stampare. \\
+\hline
+{\em separator} & Carattere usato tra i byte (es. \textquotesingle{}\+:\textquotesingle{} \textquotesingle{}-\/\textquotesingle{} \textquotesingle{} \textquotesingle{}). \\
+\hline
+{\em decode} & Se diverso da 0, mostra anche una decodifica\+:
+\begin{DoxyItemize}
+\item Unicast / Multicast
+\item Universale / Locale
+\item (opzionale) Nome produttore dall\textquotesingle{}OUI, se noto
+\end{DoxyItemize}\\
+\hline
+\end{DoxyParams}
+Esempio\+: print\+\_\+mac(\&mac, \textquotesingle{}\+:\textquotesingle{}, 1); // Output\+: AA\+:\+BB\+:\+CC\+:\+DD\+:\+EE\+:FF (Unicast, Universale, Intel Corp.)
+
+
+\begin{DoxyParams}{Parameters}
+{\em mac} & indirizzo MAC da stampare \\
+\hline
+{\em separator} & char tra i byte (\textquotesingle{}\+:\textquotesingle{} \textquotesingle{}-\/\textquotesingle{} \textquotesingle{} \textquotesingle{}) \\
+\hline
+{\em decode} & se != 0, stampa anche decodifica (bcast/mcast/unicast + vendor) \\
+\hline
+\end{DoxyParams}
+\Hypertarget{eth__frame_8h_a92ffbb3871e3028667f7f28c79a4c473}\index{eth\_frame.h@{eth\_frame.h}!print\_snap\_summary@{print\_snap\_summary}}
+\index{print\_snap\_summary@{print\_snap\_summary}!eth\_frame.h@{eth\_frame.h}}
+\doxysubsubsection{\texorpdfstring{print\_snap\_summary()}{print\_snap\_summary()}}
+{\footnotesize\ttfamily \label{eth__frame_8h_a92ffbb3871e3028667f7f28c79a4c473} 
+void print\+\_\+snap\+\_\+summary (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structsnap__pdu__t}{snap\+\_\+pdu\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{snap}{}\end{DoxyParamCaption})}
+
+
+
+stampa riepilogo PDU SNAP 
+
+Stampa il riepilogo del PDU SNAP.
+
+
+\begin{DoxyParams}{Parameters}
+{\em snap} & Puntatore alla struttura \doxylink{structsnap__pdu__t}{snap\+\_\+pdu\+\_\+t} da stampare\\
+\hline
+\end{DoxyParams}
+mostro OUI (con lookup vendor), protocol\+\_\+id (con lookup protocollo)
+
+
+\begin{DoxyParams}{Parameters}
+{\em snap} & puntatore a struttura \doxylink{structsnap__pdu__t}{snap\+\_\+pdu\+\_\+t} da stampare \\
+\hline
+\end{DoxyParams}
+\Hypertarget{eth__frame_8h_af49e8925af247ae79ab7b4e2ed92176c}\index{eth\_frame.h@{eth\_frame.h}!read\_frame\_from\_text\_file@{read\_frame\_from\_text\_file}}
+\index{read\_frame\_from\_text\_file@{read\_frame\_from\_text\_file}!eth\_frame.h@{eth\_frame.h}}
+\doxysubsubsection{\texorpdfstring{read\_frame\_from\_text\_file()}{read\_frame\_from\_text\_file()}}
+{\footnotesize\ttfamily \label{eth__frame_8h_af49e8925af247ae79ab7b4e2ed92176c} 
+int read\+\_\+frame\+\_\+from\+\_\+text\+\_\+file (\begin{DoxyParamCaption}\item[{FILE \texorpdfstring{$\ast$}{*}}]{fp}{, }\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{buf}{, }\item[{size\+\_\+t}]{bufsize}{}\end{DoxyParamCaption})}
+
+
+
+read frame from file in hex 
+
+Legge un frame da un file di testo in formato esadecimale.
+
+Formato atteso\+:
+\begin{DoxyItemize}
+\item una riga = un frame
+\item caratteri ammessi\+: 0-\/9, a-\/f, A-\/F, spazi
+\item righe vuote o che iniziano con \textquotesingle{}\#\textquotesingle{} sono commenti e vanno ignorate
+\item spazi vanno ignorati
+\item possibili errori\+: lunghezza dispari, caratteri non validi, se il frame non sta in bufsize, errore
+\end{DoxyItemize}
+
+Parametri\+: 
+\begin{DoxyParams}{Parameters}
+{\em fp} & \+: file di input già aperto in lettura testo \\
+\hline
+{\em buf} & \+: buffer di destinazione per i byte del frame \\
+\hline
+{\em bufsize} & \+: dimensione massima del buffer\\
+\hline
+\end{DoxyParams}
+Valore di ritorno\+:
+\begin{DoxyItemize}
+\item len \+: lunghezza in byte del frame letto se OK
+\item 0 \+: EOF raggiunto prima di leggere un frame valido
+\item -\/1 \+: errore di formato (es. caratteri non validi, lunghezza dispari, dati che non stanno in bufsize)
+\end{DoxyItemize}
+
+Implementazione tipica\+:
+\begin{DoxyItemize}
+\item usa fgets() per leggere una riga in un buffer temporaneo
+\item skippa righe vuote / commenti
+\item rimuove gli spazi dalla riga
+\item chiama \doxylink{eth__frame_8c_ae79f51be6c54098d24792ff4cce809f4}{hex\+\_\+to\+\_\+bytes()} per ottenere i byte nel buffer
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}{Parameters}
+{\em fp} & file opened \\
+\hline
+{\em buf} & buffer di dest per i byte del frame \\
+\hline
+{\em bufsize} & dimensione massima del buffer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int lunghezza del frame letto se ok, 0 se EOF, -\/1 se errore di formato 
+\end{DoxyReturn}

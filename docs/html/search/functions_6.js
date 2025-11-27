@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['read_5finput_0',['read_input',['../ethernet__frame_8c.html#a902488dd1453492a50ff75fc8b35761d',1,'ethernet_frame.c']]],
-  ['remove_5fspaces_1',['remove_spaces',['../ethernet__frame_8c.html#a7e733c544f469bf183557ae2d2fbca90',1,'ethernet_frame.c']]]
+  ['sap_5flookup_0',['sap_lookup',['../tables_8c.html#a4451fe88173cffdc18c12c35b2735a1f',1,'sap_lookup(uint8_t sap):&#160;tables.c'],['../tables_8h.html#a4451fe88173cffdc18c12c35b2735a1f',1,'sap_lookup(uint8_t sap):&#160;tables.c']]]
 ];

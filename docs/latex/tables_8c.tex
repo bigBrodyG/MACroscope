@@ -1,0 +1,204 @@
+\doxysection{tables.\+c File Reference}
+\hypertarget{tables_8c}{}\label{tables_8c}\index{tables.c@{tables.c}}
+
+
+Lookup Table statiche per OUI (MAC vendor), SAP (LLC) ed Ethertype.  
+
+
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include "{}tables.\+h"{}}\newline
+{\ttfamily \#include "{}eth\+\_\+frame.\+h"{}}\newline
+{\ttfamily \#include $<$stddef.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structoui__entry__t}{oui\+\_\+entry\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{tables_8c_aaaa3a7b6206d510eb4d2c2ed7d8145b4}{protocol\+\_\+name}} (uint16\+\_\+t value)
+\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{tables_8c_a3df167e02b91554b0deefeb5fcb93c91}{oui\+\_\+lookup}} (uint32\+\_\+t oui)
+\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{tables_8c_a4451fe88173cffdc18c12c35b2735a1f}{sap\+\_\+lookup}} (uint8\+\_\+t sap)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static const \mbox{\hyperlink{structoui__entry__t}{oui\+\_\+entry\+\_\+t}} \mbox{\hyperlink{tables_8c_adbc82fbcb0f1481a0d7d95de27c1d704}{oui\+\_\+table}} \mbox{[}$\,$\mbox{]}
+\item 
+static const size\+\_\+t \mbox{\hyperlink{tables_8c_a596805bec5336551c6cc262fe044a7f3}{oui\+\_\+table\+\_\+count}} = sizeof(\mbox{\hyperlink{tables_8c_adbc82fbcb0f1481a0d7d95de27c1d704}{oui\+\_\+table}}) / sizeof(\mbox{\hyperlink{tables_8c_adbc82fbcb0f1481a0d7d95de27c1d704}{oui\+\_\+table}}\mbox{[}0\mbox{]})
+\item 
+static const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{tables_8c_a78bdc11410982e86c40c8b794b0f7db7}{sap\+\_\+table}} \mbox{[}256\mbox{]}
+\item 
+static const size\+\_\+t \mbox{\hyperlink{tables_8c_ad5e9f81847f2f2c83f888374cb5b12d2}{sap\+\_\+table\+\_\+count}} = 256
+\item 
+static const \mbox{\hyperlink{structproto__desc__t}{proto\+\_\+desc\+\_\+t}} \mbox{\hyperlink{tables_8c_ac243c45f066698a92547addd150cd456}{proto\+\_\+table}} \mbox{[}$\,$\mbox{]}
+\item 
+static const size\+\_\+t \mbox{\hyperlink{tables_8c_a979928029b63babae6ddbbe74ef6eea9}{proto\+\_\+count}} = sizeof(\mbox{\hyperlink{tables_8c_ac243c45f066698a92547addd150cd456}{proto\+\_\+table}}) / sizeof(\mbox{\hyperlink{tables_8c_ac243c45f066698a92547addd150cd456}{proto\+\_\+table}}\mbox{[}0\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Lookup Table statiche per OUI (MAC vendor), SAP (LLC) ed Ethertype. 
+
+\begin{DoxyAuthor}{Author}
+Rug (\href{https://github.com/dugolott}{\texttt{https\+://github.\+com/dugolott}}) // fenomeno 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2025-\/11-\/20
+\end{DoxyDate}
+Tabelle di lookup per decodificare\+:
+\begin{DoxyItemize}
+\item OUI (primi 3 byte del MAC) → nome produttore
+\item SAP (Service Access Point) → protocollo LLC
+\item Ethertype → protocollo livello superiore 
+\end{DoxyItemize}
+
+\label{doc-func-members}
+\Hypertarget{tables_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{tables_8c_a3df167e02b91554b0deefeb5fcb93c91}\index{tables.c@{tables.c}!oui\_lookup@{oui\_lookup}}
+\index{oui\_lookup@{oui\_lookup}!tables.c@{tables.c}}
+\doxysubsubsection{\texorpdfstring{oui\_lookup()}{oui\_lookup()}}
+{\footnotesize\ttfamily \label{tables_8c_a3df167e02b91554b0deefeb5fcb93c91} 
+const char \texorpdfstring{$\ast$}{*} oui\+\_\+lookup (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{oui}{}\end{DoxyParamCaption})}
+
+Ricerca del produttore OUI
+\begin{DoxyItemize}
+\item oui \+: primi 24 bit del MAC address
+\end{DoxyItemize}
+
+Ritorna il nome del produttore se noto, altrimenti "{}\+Sconosciuto"{}. \Hypertarget{tables_8c_aaaa3a7b6206d510eb4d2c2ed7d8145b4}\index{tables.c@{tables.c}!protocol\_name@{protocol\_name}}
+\index{protocol\_name@{protocol\_name}!tables.c@{tables.c}}
+\doxysubsubsection{\texorpdfstring{protocol\_name()}{protocol\_name()}}
+{\footnotesize\ttfamily \label{tables_8c_aaaa3a7b6206d510eb4d2c2ed7d8145b4} 
+const char \texorpdfstring{$\ast$}{*} protocol\+\_\+name (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{value}{}\end{DoxyParamCaption})}
+
+Restituisce il nome del protocollo associato a un Ethertype / protocol\+\_\+id.
+\begin{DoxyItemize}
+\item value \+: Ethertype (Ethernet II) oppure protocol\+\_\+id (SNAP)
+\end{DoxyItemize}
+
+Ritorna una stringa costante (es. "{}\+IPv4"{}, "{}\+ARP"{}, "{}\+IPv6"{}) se noto, altrimenti "{}\+Sconosciuto"{}.
+
+L\textquotesingle{}implementazione userà internamente un array statico di \doxylink{structproto__desc__t}{proto\+\_\+desc\+\_\+t}. \Hypertarget{tables_8c_a4451fe88173cffdc18c12c35b2735a1f}\index{tables.c@{tables.c}!sap\_lookup@{sap\_lookup}}
+\index{sap\_lookup@{sap\_lookup}!tables.c@{tables.c}}
+\doxysubsubsection{\texorpdfstring{sap\_lookup()}{sap\_lookup()}}
+{\footnotesize\ttfamily \label{tables_8c_a4451fe88173cffdc18c12c35b2735a1f} 
+const char \texorpdfstring{$\ast$}{*} sap\+\_\+lookup (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{sap}{}\end{DoxyParamCaption})}
+
+Ricerca del nome SAP (LLC)
+\begin{DoxyItemize}
+\item sap \+: valore DSAP o SSAP
+\end{DoxyItemize}
+
+Ritorna il nome del SAP se noto, altrimenti "{}\+Sconosciuto"{}. 
+
+\label{doc-var-members}
+\Hypertarget{tables_8c_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{tables_8c_adbc82fbcb0f1481a0d7d95de27c1d704}\index{tables.c@{tables.c}!oui\_table@{oui\_table}}
+\index{oui\_table@{oui\_table}!tables.c@{tables.c}}
+\doxysubsubsection{\texorpdfstring{oui\_table}{oui\_table}}
+{\footnotesize\ttfamily \label{tables_8c_adbc82fbcb0f1481a0d7d95de27c1d704} 
+const \mbox{\hyperlink{structoui__entry__t}{oui\+\_\+entry\+\_\+t}} oui\+\_\+table\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \ \ \{0x000C29,\ \textcolor{stringliteral}{"{}VMware,\ Inc."{}}\},}
+\DoxyCodeLine{\ \ \ \ \{0x3C5A37,\ \textcolor{stringliteral}{"{}Apple,\ Inc."{}}\},}
+\DoxyCodeLine{\ \ \ \ \{0x00163E,\ \textcolor{stringliteral}{"{}Cisco\ Systems,\ Inc."{}}\},}
+\DoxyCodeLine{\ \ \ \ \{0xF0DE71,\ \textcolor{stringliteral}{"{}Intel\ Corporate"{}}\},}
+\DoxyCodeLine{\ \ \ \ \{0xB827EB,\ \textcolor{stringliteral}{"{}Raspberry\ Pi\ Foundation"{}}\},}
+\DoxyCodeLine{\ \ \ \ \{0xD850E6,\ \textcolor{stringliteral}{"{}Samsung\ Electronics"{}}\},}
+\DoxyCodeLine{\ \ \ \ \{0x001E06,\ \textcolor{stringliteral}{"{}Hewlett-\/Packard"{}}\},}
+\DoxyCodeLine{\ \ \ \ \{0x00155D,\ \textcolor{stringliteral}{"{}Dell\ Inc."{}}\},}
+\DoxyCodeLine{\ \ \ \ \{0x000D93,\ \textcolor{stringliteral}{"{}Hon\ Hai\ Precision\ (Foxconn)"{}}\},}
+\DoxyCodeLine{\ \ \ \ \{0xF4F5A5,\ \textcolor{stringliteral}{"{}Xiaomi\ Communications"{}}\},}
+\DoxyCodeLine{\ \ \ \ \{0x70E284,\ \textcolor{stringliteral}{"{}Google,\ Inc."{}}\},}
+\DoxyCodeLine{\ \ \ \ \{0xBC305B,\ \textcolor{stringliteral}{"{}ASUSTek\ Computer\ Inc."{}}\},}
+\DoxyCodeLine{\ \ \ \ \{0x0013EF,\ \textcolor{stringliteral}{"{}Sony\ Corporation"{}}\},}
+\DoxyCodeLine{\ \ \ \ \{0x0009B0,\ \textcolor{stringliteral}{"{}LG\ Electronics"{}}\},}
+\DoxyCodeLine{\ \ \ \ \{0xC83A35,\ \textcolor{stringliteral}{"{}Lenovo\ Mobile\ Communication"{}}\},}
+\DoxyCodeLine{\ \ \ \ \{0x001122,\ \textcolor{stringliteral}{"{}CIMSYS\ Inc"{}}\},}
+\DoxyCodeLine{\ \ \ \ \{0xAABBCC,\ \textcolor{stringliteral}{"{}Unknown\ Vendor"{}}\},}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\Hypertarget{tables_8c_a596805bec5336551c6cc262fe044a7f3}\index{tables.c@{tables.c}!oui\_table\_count@{oui\_table\_count}}
+\index{oui\_table\_count@{oui\_table\_count}!tables.c@{tables.c}}
+\doxysubsubsection{\texorpdfstring{oui\_table\_count}{oui\_table\_count}}
+{\footnotesize\ttfamily \label{tables_8c_a596805bec5336551c6cc262fe044a7f3} 
+const size\+\_\+t oui\+\_\+table\+\_\+count = sizeof(\mbox{\hyperlink{tables_8c_adbc82fbcb0f1481a0d7d95de27c1d704}{oui\+\_\+table}}) / sizeof(\mbox{\hyperlink{tables_8c_adbc82fbcb0f1481a0d7d95de27c1d704}{oui\+\_\+table}}\mbox{[}0\mbox{]})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{tables_8c_a979928029b63babae6ddbbe74ef6eea9}\index{tables.c@{tables.c}!proto\_count@{proto\_count}}
+\index{proto\_count@{proto\_count}!tables.c@{tables.c}}
+\doxysubsubsection{\texorpdfstring{proto\_count}{proto\_count}}
+{\footnotesize\ttfamily \label{tables_8c_a979928029b63babae6ddbbe74ef6eea9} 
+const size\+\_\+t proto\+\_\+count = sizeof(\mbox{\hyperlink{tables_8c_ac243c45f066698a92547addd150cd456}{proto\+\_\+table}}) / sizeof(\mbox{\hyperlink{tables_8c_ac243c45f066698a92547addd150cd456}{proto\+\_\+table}}\mbox{[}0\mbox{]})\hspace{0.3cm}{\ttfamily [static]}}
+
+\Hypertarget{tables_8c_ac243c45f066698a92547addd150cd456}\index{tables.c@{tables.c}!proto\_table@{proto\_table}}
+\index{proto\_table@{proto\_table}!tables.c@{tables.c}}
+\doxysubsubsection{\texorpdfstring{proto\_table}{proto\_table}}
+{\footnotesize\ttfamily \label{tables_8c_ac243c45f066698a92547addd150cd456} 
+const \mbox{\hyperlink{structproto__desc__t}{proto\+\_\+desc\+\_\+t}} proto\+\_\+table\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \ \ \{0x0800,\ \textcolor{stringliteral}{"{}IPv4"{}}\},}
+\DoxyCodeLine{\ \ \ \ \{0x0806,\ \textcolor{stringliteral}{"{}ARP"{}}\},}
+\DoxyCodeLine{\ \ \ \ \{0x0842,\ \textcolor{stringliteral}{"{}Wake\ ON\ LAN"{}}\},}
+\DoxyCodeLine{\ \ \ \ \{0x22F3,\ \textcolor{stringliteral}{"{}TRILL"{}}\},}
+\DoxyCodeLine{\ \ \ \ \{0x6003,\ \textcolor{stringliteral}{"{}DECnet"{}}\},}
+\DoxyCodeLine{\ \ \ \ \{0x8035,\ \textcolor{stringliteral}{"{}RARP"{}}\},}
+\DoxyCodeLine{\ \ \ \ \{0x8100,\ \textcolor{stringliteral}{"{}802.1Q\ VLAN"{}}\},}
+\DoxyCodeLine{\ \ \ \ \{0x86DD,\ \textcolor{stringliteral}{"{}IPv6"{}}\},}
+\DoxyCodeLine{\ \ \ \ \{0x8808,\ \textcolor{stringliteral}{"{}Ethernet\ Flow\ Control"{}}\},}
+\DoxyCodeLine{\ \ \ \ \{0x8809,\ \textcolor{stringliteral}{"{}LACP"{}}\},}
+\DoxyCodeLine{\ \ \ \ \{0x8847,\ \textcolor{stringliteral}{"{}MPLS\ unicast"{}}\},}
+\DoxyCodeLine{\ \ \ \ \{0x8848,\ \textcolor{stringliteral}{"{}MPLS\ multicast"{}}\},}
+\DoxyCodeLine{\ \ \ \ \{0x8863,\ \textcolor{stringliteral}{"{}PPPoE\ Discovery"{}}\},}
+\DoxyCodeLine{\ \ \ \ \{0x8864,\ \textcolor{stringliteral}{"{}PPPoE\ Session"{}}\},}
+\DoxyCodeLine{\ \ \ \ \{0x88B8,\ \textcolor{stringliteral}{"{}PTP"{}}\},}
+\DoxyCodeLine{\ \ \ \ \{0x88CC,\ \textcolor{stringliteral}{"{}LLDP"{}}\},}
+\DoxyCodeLine{\ \ \ \ \{0x88E5,\ \textcolor{stringliteral}{"{}MACsec"{}}\},}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\Hypertarget{tables_8c_a78bdc11410982e86c40c8b794b0f7db7}\index{tables.c@{tables.c}!sap\_table@{sap\_table}}
+\index{sap\_table@{sap\_table}!tables.c@{tables.c}}
+\doxysubsubsection{\texorpdfstring{sap\_table}{sap\_table}}
+{\footnotesize\ttfamily \label{tables_8c_a78bdc11410982e86c40c8b794b0f7db7} 
+const char\texorpdfstring{$\ast$}{*} sap\+\_\+table\mbox{[}256\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \ \ [0x00]\ =\ \textcolor{stringliteral}{"{}Null\ LSAP"{}},}
+\DoxyCodeLine{\ \ \ \ [0x02]\ =\ \textcolor{stringliteral}{"{}LLC\ Sub-\/layer\ Management"{}},}
+\DoxyCodeLine{\ \ \ \ [0x04]\ =\ \textcolor{stringliteral}{"{}IBM\ SNA\ Path\ Control"{}},}
+\DoxyCodeLine{\ \ \ \ [0x06]\ =\ \textcolor{stringliteral}{"{}DOD\ IP"{}},}
+\DoxyCodeLine{\ \ \ \ [0x08]\ =\ \textcolor{stringliteral}{"{}PROWAY-\/LAN"{}},}
+\DoxyCodeLine{\ \ \ \ [0x0E]\ =\ \textcolor{stringliteral}{"{}PROWAY-\/LAN\ (IEC\ 955)"{}},}
+\DoxyCodeLine{\ \ \ \ [0x42]\ =\ \textcolor{stringliteral}{"{}IEEE\ 802.1\ Bridge\ Spanning\ Tree"{}},}
+\DoxyCodeLine{\ \ \ \ [0xAA]\ =\ \textcolor{stringliteral}{"{}SNAP\ (SubNetwork\ Access\ Protocol)"{}},}
+\DoxyCodeLine{\ \ \ \ [0xE0]\ =\ \textcolor{stringliteral}{"{}NetBIOS"{}},}
+\DoxyCodeLine{\ \ \ \ [0xF0]\ =\ \textcolor{stringliteral}{"{}IBM\ NETBIOS"{}},}
+\DoxyCodeLine{\ \ \ \ [0xFE]\ =\ \textcolor{stringliteral}{"{}ISO\ Network\ Layer"{}},}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\Hypertarget{tables_8c_ad5e9f81847f2f2c83f888374cb5b12d2}\index{tables.c@{tables.c}!sap\_table\_count@{sap\_table\_count}}
+\index{sap\_table\_count@{sap\_table\_count}!tables.c@{tables.c}}
+\doxysubsubsection{\texorpdfstring{sap\_table\_count}{sap\_table\_count}}
+{\footnotesize\ttfamily \label{tables_8c_ad5e9f81847f2f2c83f888374cb5b12d2} 
+const size\+\_\+t sap\+\_\+table\+\_\+count = 256\hspace{0.3cm}{\ttfamily [static]}}
+

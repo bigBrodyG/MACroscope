@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['macroscope_0',['MACroscope',['../index.html',1,'']]],
-  ['main_1',['main',['../ethernet__frame_8c.html#a0ddf1224851353fc92bfbff6f499fa97',1,'ethernet_frame.c']]],
-  ['minimi_2',['Requisiti minimi',['../index.html#autotoc_md10',1,'']]]
+  ['ii_0',['Struttura del frame Ethernet II',['../index.html#autotoc_md3',1,'']]],
+  ['input_20per_20test_1',['Esempi di input (per test)',['../index.html#autotoc_md5',1,'']]]
 ];

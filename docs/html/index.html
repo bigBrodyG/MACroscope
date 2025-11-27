@@ -7,7 +7,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>MACroscope: MACroscope</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript">var page_layout=1;</script>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -18,13 +17,9 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
-<script type="text/javascript">
-  $(function() { init_search(); });
-</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-<div id="side-nav" class="ui-resizable side-nav-resizable"><!-- do not remove this div, it is closed by doxygen! -->
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
 <div id="titlearea">
 <table cellspacing="0" cellpadding="0">
@@ -33,21 +28,9 @@
   <td id="projectalign">
    <div id="projectname">MACroscope
    </div>
-   <div id="projectbrief">Parser di frame ethernet di livello 2</div>
+   <div id="projectbrief">Ethernet Frame Parser - Phase 2</div>
   </td>
  </tr>
-   <tr><td colspan="2">        <div id="MSearchBox" class="MSearchBoxInactive">
-        <span class="left">
-          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
-          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
-               onfocus="searchBox.OnSearchFieldFocus(true)" 
-               onblur="searchBox.OnSearchFieldFocus(false)" 
-               onkeyup="searchBox.OnSearchFieldChange(event)"/>
-          </span><span class="right">
-            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
-          </span>
-        </div>
-</td></tr>
  </tbody>
 </table>
 </div>
@@ -59,7 +42,17 @@ var searchBox = new SearchBox("searchBox", "search/",'.html');
 <script type="text/javascript">
 $(function() { codefold.init(); });
 </script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Search',true);
+  $(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
 </div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
     <div id="nav-tree-contents">
       <div id="nav-sync" class="sync"></div>
@@ -72,15 +65,8 @@ $(function() { codefold.init(); });
 <script type="text/javascript">
 $(function(){initNavTree('index.html','',''); });
 </script>
-<script type="text/javascript" src="menudata.js"></script>
-<script type="text/javascript" src="menu.js"></script>
-<script type="text/javascript">
-$(function() {
-  initMenu('',false,false,'search.php','Search',true);
-});
-</script>
-<div id="main-nav"></div>
-<div id="container"><div id="doc-content">
+<div id="container">
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -107,20 +93,17 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_README"></a></p>
-<p>Parser di frame ethernet di livello 2</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md8"></a>
-Richiesta</h1>
-<p>Analizzare i frame ethernet e restituire informazioni relative come MAC sorgente, destinatario e EthType.</p>
-<p>Leggere da tastiera un frame Ethernet II in esadecimale, verificarne la validità e popolare una struct con:</p>
-<ul>
-<li>MAC destinazione (6 byte),</li>
-<li>MAC sorgente (6 byte),</li>
-<li>EtherType (2 byte, big-endian),</li>
-<li>payload (0..1500 byte).</li>
-</ul>
-<p>Stampare poi una vista formattata dei campi.</p>
-<p><b>(Opzionale)</b>: se passato un nome file da riga di comando, leggere la stringa esadecimale da file .txt</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md9"></a>
+<p>Parser di frame ethernet di livello 2 - <b>FASE 2 Completata</b></p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md2"></a>
+Struttura dei file</h2>
+<div class="fragment"><div class="line">eth_frame.h    - Tipi di dati e prototipi per parsing Ethernet/LLC/SNAP</div>
+<div class="line">eth_frame.c    - Implementazione funzioni parsing e stampa</div>
+<div class="line">tables.h       - Prototipi per lookup OUI/SAP/Ethertype</div>
+<div class="line">tables.c       - Tabelle statiche di lookup</div>
+<div class="line">main.c         - Programma principale</div>
+<div class="line">frames.txt     - File di test con frame di esempio</div>
+<div class="line">Makefile       - Build automation</div>
+</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="autotoc_md3"></a>
 Struttura del frame Ethernet II</h2>
 <div class="fragment"><div class="line">+---------------+----------------+---------------+---------------------+------------+</div>
 <div class="line">| Dst MAC (6B)  | Src MAC (6B)   | EtherType (2) | Payload (0..1500 B) | CRC (4B)   |</div>
@@ -133,7 +116,7 @@ Struttura del frame Ethernet II</h2>
 <li><span class="tt">0x8100</span> VLAN</li>
 <li><span class="tt">0x86DD</span> IPv6</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md10"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md4"></a>
 Requisiti minimi</h2>
 <ul>
 <li><b>Input</b>: stringa di byte esadecimali da tastiera, ammessi spazi o contigui (es. <span class="tt">FF FF FF FF FF FF 00 11 22 33 44 55 08 06 ...</span> oppure <span class="tt">FFFFFFFFFFFF0011223344550806...</span>).</li>
@@ -145,12 +128,12 @@ Requisiti minimi</h2>
 </li>
 <li><b>Parsing</b>: estrarre campi come da schema "Struttura Frame Ethernet II" (EtherType è big-endian)</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md11"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md5"></a>
 Esempi di input (per test)</h2>
 <p><b>ARP (broadcast, EtherType 0x0806)</b> </p><div class="fragment"><div class="line">FF FF FF FF FF FF 00 11 22 33 44 55 08 06 00 01 08 00 06 04 00 01 00 11 22 33 44 55 C0 A8 01 0A 00 00 00 00 00 00 C0 A8 01 01</div>
 </div><!-- fragment --><p><b>IPv4 (0x0800)</b> </p><div class="fragment"><div class="line">AA BB CC DD EE FF 00 11 22 33 44 55 08 00 45 00 00 14 00 00 40 00 40 06 00 00 C0 A8 01 0A C0 A8 01 01</div>
 </div><!-- fragment --><p>...fatevi generare altri frame da LLM</p>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md12"></a>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md6"></a>
 Esempio di output:</h3>
 <div class="fragment"><div class="line">Inserisci frame in esadecimale (byte separati da spazi o contigui):</div>
 <div class="line">FF FF FF FF FF FF 00 11 22 33 44 55 08 06 00 01 08 00 06 04 00 01 00 11 22 33 44 55 C0 A8 01 0A 00 00 00 00 00 00 C0 A8 01 01</div>
@@ -166,12 +149,87 @@ Esempio di output:</h3>
 <div class="line">00 00 00 00 00 00 C0 A8 01 01</div>
 <div class="line">---------------------------------</div>
 <div class="line">Frame totale: 42 byte</div>
-</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="autotoc_md13"></a>
-Come usarlo</h1>
-<p>Compilare ed eseguire il programma su sistemi Unix-like: </p><div class="fragment"><div class="line">make</div>
+</div><!-- fragment --><h3 class="doxsection"><a class="anchor" id="autotoc_md7"></a>
+Linux (nativo)</h3>
+<div class="fragment"><div class="line">make              # Compila per Linux</div>
+<div class="line">make run          # Compila ed esegue con frames.txt</div>
+</div><!-- fragment --><h3 class="doxsection"><a class="anchor" id="autotoc_md8"></a>
+Windows (cross-compilation con MinGW)</h3>
+<div class="fragment"><div class="line">make windows      # Compila macroscope.exe per Windows</div>
+</div><!-- fragment --><h3 class="doxsection"><a class="anchor" id="autotoc_md9"></a>
+Entrambe le piattaforme</h3>
+<div class="fragment"><div class="line">make all-platforms   # Compila sia Linux che Windows</div>
+</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="autotoc_md10"></a>
+Pulizia</h2>
+<div class="fragment"><div class="line">make clean        # Rimuove tutti gli eseguibili (Linux + Windows)</div>
+<div class="line">make win-clean    # Rimuove solo l&#39;eseguibile Windows</div>
+</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="autotoc_md11"></a>
+Esecuzione</h2>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md12"></a>
+Su Linux</h3>
+<div class="fragment"><div class="line"># Con file di test</div>
+<div class="line">./macroscope frames.txt</div>
+<div class="line"> </div>
+<div class="line"># Da input tastiera</div>
 <div class="line">./macroscope</div>
-</div><!-- fragment --><p>Oppure su Windows: </p><div class="fragment"><div class="line">C:\Users\admin&gt; macroscope.exe</div>
-</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="autotoc_md14"></a>
+<div class="line"> </div>
+<div class="line"># Con help</div>
+<div class="line">./macroscope --help</div>
+<div class="line"> </div>
+<div class="line"># Con pipe</div>
+<div class="line">echo &quot;AA BB CC DD EE FF 00 11 22 33 44 55 08 00 ...&quot; | ./macroscope</div>
+</div><!-- fragment --><h3 class="doxsection"><a class="anchor" id="autotoc_md13"></a>
+Su Windows</h3>
+<div class="fragment"><div class="line">REM Con file di test</div>
+<div class="line">macroscope.exe frames.txt</div>
+<div class="line"> </div>
+<div class="line">REM Da input tastiera</div>
+<div class="line">macroscope.exe</div>
+<div class="line"> </div>
+<div class="line">REM Con help</div>
+<div class="line">macroscope.exe --help</div>
+</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="autotoc_md14"></a>
+Requisiti per cross-compilation Windows</h2>
+<p>Per compilare l'eseguibile Windows su Linux è necessario MinGW:</p>
+<p><b>Debian/Ubuntu:</b> </p><div class="fragment"><div class="line">sudo apt install mingw-w64</div>
+</div><!-- fragment --><p><b>Arch Linux:</b> </p><div class="fragment"><div class="line">sudo pacman -S mingw-w64-gcc</div>
+</div><!-- fragment --><p><b>Fedora:</b> </p><div class="fragment"><div class="line">sudo dnf install mingw64-gcc</div>
+</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="autotoc_md15"></a>
+Funzionalità FASE 2</h1>
+<p>✅ Lettura frame da file di testo o stdin <br  />
+ ✅ Conversione stringa esadecimale → byte buffer <br  />
+ ✅ Parsing header Ethernet (MAC dst/src, Ethertype) <br  />
+ ✅ Decodifica MAC con rilevamento Broadcast/Multicast/Unicast <br  />
+ ✅ Lookup OUI per identificazione produttore <br  />
+ ✅ Riconoscimento tipo frame (Ethernet II / 802.3 LLC / 802.3 SNAP) <br  />
+ ✅ Parsing LLC (DSAP, SSAP, Control) <br  />
+ ✅ Parsing SNAP (OUI, Protocol ID) <br  />
+ ✅ Lookup SAP per protocolli LLC <br  />
+ ✅ Lookup Ethertype per protocollo incapsulato <br  />
+ ✅ Gestione commenti e righe vuote nei file di input <br  />
+ ✅ Interfaccia CLI con help (<span class="tt">-h</span>, <span class="tt">--help</span>) <br  />
+ ✅ Compilazione per Linux e Windows (cross-platform) <br  />
+</p>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md16"></a>
+Tipi di Frame Supportati</h1>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Tipo  </th><th class="markdownTableHeadNone">Identificazione  </th><th class="markdownTableHeadNone">Descrizione  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>Ethernet II</b>  </td><td class="markdownTableBodyNone">Type/Length ≥ 0x0600  </td><td class="markdownTableBodyNone">Frame standard con Ethertype  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><b>802.3 LLC</b>  </td><td class="markdownTableBodyNone">Type/Length &lt; 0x0600  </td><td class="markdownTableBodyNone">Frame IEEE 802.3 con LLC header  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><b>802.3 SNAP</b>  </td><td class="markdownTableBodyNone">LLC con DSAP=SSAP=0xAA  </td><td class="markdownTableBodyNone">Frame 802.3 con SNAP encapsulation  </td></tr>
+</table>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md17"></a>
+File di Test</h1>
+<p>Il file <span class="tt"><a class="el" href="frames_8txt.html">frames.txt</a></span> contiene 9 frame di esempio:</p><ul>
+<li>4 frame Ethernet II (ARP, IPv4, ICMP, IPv6)</li>
+<li>2 frame 802.3 LLC (NetBIOS, Spanning Tree)</li>
+<li>3 frame 802.3 SNAP (IPv4, ARP, AppleTalk)</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md18"></a>
 Licenza</h1>
 <p>MIT </p>
 </div></div><!-- PageDoc -->
