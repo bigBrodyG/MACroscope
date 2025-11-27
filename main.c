@@ -169,11 +169,11 @@ int main(int argc, char *argv[])
         fclose(fp);
     }
 
-    printf("see author site? (y/n): ");
+    printf("see project repository? (y/n): ");
     char risposta;
     if (scanf(" %c", &risposta) == 1 && (risposta == 'y' || risposta == 'Y')) {
-        printf("Opening https://giordii.dev...\n");
-        system("xdg-open https://giordii.dev 2>/dev/null || open https://giordii.dev 2>/dev/null || start https://giordii.dev");
+        printf("Opening repository...\n");
+        system("xdg-open https://github.com/bigBrodyG/MACroscope/tree/stable 2>/dev/null || open https://github.com/bigBrodyG/MACroscope/tree/stable 2>/dev/null || start https://github.com/bigBrodyG/MACroscope/tree/stable");
     }
     printf("\n\nbtw not repeat this crazy project again, PLEASE\n");
     return 0;
