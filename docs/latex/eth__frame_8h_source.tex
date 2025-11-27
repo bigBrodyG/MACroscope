@@ -1,0 +1,127 @@
+\doxysection{eth\+\_\+frame.\+h}
+\hypertarget{eth__frame_8h_source}{}\label{eth__frame_8h_source}\mbox{\hyperlink{eth__frame_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*\ =========================================================================}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ \ eth\_frame.h\ \ -\/-\/\ \ Tipi\ e\ prototipi\ per\ il\ parsing\ di\ frame\ Ethernet\ /\ LLC\ /\ SNAP}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ =========================================================================\ */}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ ETH\_FRAME\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ ETH\_FRAME\_H}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <stddef.h>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <ctype.h>}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{comment}{/*\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ \ VISTA\ DI\ BYTE\ (no\ copia,\ solo\ puntatore\ al\ buffer\ originale)}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ */}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ *\mbox{\hyperlink{structpayload__t_a297c791f1899345fc76e9ed45cfc642b}{data}};\ \ \ \textcolor{comment}{/*\ inizio\ dei\ dati\ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structpayload__t_a046766c40a0304aba5b9ae86dc98d531}{len}};\ \ \ \ \textcolor{comment}{/*\ numero\ di\ byte\ disponibili\ \ \ */}}
+\DoxyCodeLine{00022\ \}\ \mbox{\hyperlink{structpayload__t}{payload\_t}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ l'aggiunta\ di\ len\ lo\ trasforma\ in\ un\ payload\ intelligente:\ }}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ conosce\ la\ propria\ lunghezza*/}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{comment}{/*\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\ *\ \ MAC\ address}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\ *\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ }}
+\DoxyCodeLine{00028\ \textcolor{comment}{*\ Rispetto\ a\ "{}typedef\ uint8\_t\ mac\_addr\_t[6];"{}}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ *\ migliora\ chiarezza\ semantica\ e\ sicurezza\ di\ tipo,\ */}}
+\DoxyCodeLine{00030\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00031\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structmac__addr__t_a8671fb60859ddf36fbeb2f3032d66b7a}{bytes}}[6];}
+\DoxyCodeLine{00032\ \}\ \mbox{\hyperlink{structmac__addr__t}{mac\_addr\_t}};}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{comment}{/*\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ *\ \ ETH\ L2:\ header\ base\ (valido\ per\ Ethernet\ II\ e\ 802.3)}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ *\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ */}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \mbox{\hyperlink{eth__frame_8h_ae0e4f721cd51e9fb133da7315c1faf14a1fc6e62cfb004d03bb9f5912412b484d}{ETH\_KIND\_ETHERNET\_II}},}
+\DoxyCodeLine{00040\ \ \ \ \ \mbox{\hyperlink{eth__frame_8h_ae0e4f721cd51e9fb133da7315c1faf14a2002087239fc0b8a5dcb024545521190}{ETH\_KIND\_8023\_LLC}},}
+\DoxyCodeLine{00041\ \ \ \ \ \mbox{\hyperlink{eth__frame_8h_ae0e4f721cd51e9fb133da7315c1faf14a8322065c71b63ff22605b8cc92dc0ed2}{ETH\_KIND\_8023\_SNAP}}}
+\DoxyCodeLine{00042\ \}\ \mbox{\hyperlink{eth__frame_8h_ae0e4f721cd51e9fb133da7315c1faf14}{frame\_type\_t}};}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00045\ \ \ \ \ \mbox{\hyperlink{structmac__addr__t}{mac\_addr\_t}}\ \mbox{\hyperlink{structeth__frame__t_a76c8cac67aa662866c8c2180459d042c}{dst}};}
+\DoxyCodeLine{00046\ \ \ \ \ \mbox{\hyperlink{structmac__addr__t}{mac\_addr\_t}}\ \mbox{\hyperlink{structeth__frame__t_a24b5c6d1e5a0ac1e84824352ecea2bb8}{src}};}
+\DoxyCodeLine{00047\ \ \ \ \ uint16\_t\ \ \ \mbox{\hyperlink{structeth__frame__t_a2be02e610ad297f870ccc4a5c7548774}{type\_or\_len}};\ \ \ \textcolor{comment}{/*\ Ethertype\ (>=0x0600)\ oppure\ lunghezza\ (<0x0600)\ */}}
+\DoxyCodeLine{00048\ \ \ \ \ \mbox{\hyperlink{structpayload__t}{payload\_t}}\ \mbox{\hyperlink{structeth__frame__t_a55606456d96f3f0390263191c437f8a1}{payload}};\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ tutto\ ciò\ che\ viene\ dopo\ i\ 14\ byte\ di\ header\ \ \ */}}
+\DoxyCodeLine{00049\ \ \ \ \ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{comment}{/*\ \ I\ seguenti\ campi\ servono\ per\ migliorare\ la\ gestione\ del\ frame:\ tipo\ metadati\ }}
+\DoxyCodeLine{00051\ \textcolor{comment}{\ \ \ \ e\ vengono\ popolati\ dalla\ funzione\ di\ parsing\ */}}
+\DoxyCodeLine{00052\ \ \ \ \ \mbox{\hyperlink{eth__frame_8h_ae0e4f721cd51e9fb133da7315c1faf14}{frame\_type\_t}}\ \mbox{\hyperlink{structeth__frame__t_a7e784767baec024677817c9dbd3168e5}{frame\_type}};\ \textcolor{comment}{/*\ tipo\ di\ frame\ (Ethernet\ II\ /\ 802.3\ LLC\ /\ 802.3\ SNAP)\ */}}
+\DoxyCodeLine{00053\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structeth__frame__t_a27e5bfbdc72422c9168ccb61d3bbce62}{total\_len}};\ \ \ \ \ \ \textcolor{comment}{/*\ lunghezza\ totale\ del\ frame\ (header\ +\ payload)\ */}}
+\DoxyCodeLine{00054\ \}\ \ \mbox{\hyperlink{structeth__frame__t}{eth\_frame\_t}};}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{comment}{/*\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00057\ \textcolor{comment}{\ *\ \ LLC}}
+\DoxyCodeLine{00058\ \textcolor{comment}{\ *\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ */}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00061\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structllc__pdu__t_a563c856590aca97564ae109d0830d99e}{dsap}};}
+\DoxyCodeLine{00062\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structllc__pdu__t_ade7667a11fe01ba28ed890a2a814a8c9}{ssap}};}
+\DoxyCodeLine{00063\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structllc__pdu__t_abfb1831064908aef534746d86dd181f5}{control}};}
+\DoxyCodeLine{00064\ \ \ \ \ \mbox{\hyperlink{structpayload__t}{payload\_t}}\ \mbox{\hyperlink{structllc__pdu__t_a4d6e0c8112069009f66074f45cf8af92}{payload}};\ \ \ \textcolor{comment}{/*\ dati\ incapsulati\ dentro\ LLC\ (es.\ SNAP)\ */}}
+\DoxyCodeLine{00065\ \}\ \mbox{\hyperlink{structllc__pdu__t}{llc\_pdu\_t}};}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \textcolor{comment}{/*\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00068\ \textcolor{comment}{\ *\ \ SNAP}}
+\DoxyCodeLine{00069\ \textcolor{comment}{\ *\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ */}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00072\ \ \ \ \ uint8\_t\ \ \mbox{\hyperlink{structsnap__pdu__t_a9f75e8c2b2416799ea2217a3a4a6f98e}{oui}}[3];}
+\DoxyCodeLine{00073\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structsnap__pdu__t_a6d54756ee4156cc2c793d02e15e113d2}{protocol\_id}};\ \ \ \textcolor{comment}{/*\ spesso\ un\ Ethertype\ */}}
+\DoxyCodeLine{00074\ \ \ \ \ \mbox{\hyperlink{structpayload__t}{payload\_t}}\ \mbox{\hyperlink{structsnap__pdu__t_aae9af792c8adc7c3700c4b273addc61f}{payload}};\ \ \ \ \ \ \textcolor{comment}{/*\ dati\ incapsulati\ dentro\ SNAP\ (es.\ IPv4,\ ARP,\ ...\ o\ protocolli\ proprietari)\ */}}
+\DoxyCodeLine{00075\ \}\ \mbox{\hyperlink{structsnap__pdu__t}{snap\_pdu\_t}};}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{comment}{/*\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00078\ \textcolor{comment}{\ *\ \ DESCRIZIONE\ PROTOCOLLI\ (per\ tabella\ Ethertype\ /\ SNAP)}}
+\DoxyCodeLine{00079\ \textcolor{comment}{\ *\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ */}}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00082\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structproto__desc__t_a84fe3ca13e0288fa29e140ab3bc28dc9}{value}};\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Ethertype\ o\ protocol\_id\ SNAP\ */}}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structproto__desc__t_a17e3ab515990bd909dccd3442f28f3ff}{name}};\ \ \ \ \ \ \ \textcolor{comment}{/*\ stringa\ descrittiva\ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00084\ \}\ \mbox{\hyperlink{structproto__desc__t}{proto\_desc\_t}};}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \textcolor{comment}{/*\ =========================================================================}}
+\DoxyCodeLine{00087\ \textcolor{comment}{\ *\ \ FUNZIONI\ DA\ IMPLEMENTARE\ (compito)}}
+\DoxyCodeLine{00088\ \textcolor{comment}{\ *\ =========================================================================\ */}}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{comment}{/*\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ HEX\ →\ BYTE\ BUFFER\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ */}}
+\DoxyCodeLine{00102\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{eth__frame_8h_ae79f51be6c54098d24792ff4cce809f4}{hex\_to\_bytes}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *hex,}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ *buf,}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ bufsize);}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \textcolor{comment}{/*\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ LETTURA\ FRAME\ DA\ FILE\ DI\ TESTO\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ */}}
+\DoxyCodeLine{00134\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{eth__frame_8h_af49e8925af247ae79ab7b4e2ed92176c}{read\_frame\_from\_text\_file}}(FILE\ *fp,\ uint8\_t\ *buf,\ \textcolor{keywordtype}{size\_t}\ bufsize);}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \textcolor{comment}{/*\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ PARSING\ ETHERNET\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ */}}
+\DoxyCodeLine{00150\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{eth__frame_8h_a5aa003fad59a0e44a1caf05eb139d6df}{parse\_ethernet}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structpayload__t}{payload\_t}}\ *buf,\ \mbox{\hyperlink{structeth__frame__t}{eth\_frame\_t}}\ *eth);}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \textcolor{comment}{/*\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ PARSING\ LLC\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ */}}
+\DoxyCodeLine{00163\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{eth__frame_8h_ad0f4ce9505ec41f77cb91a6a4af397c3}{parse\_llc}}(\mbox{\hyperlink{structpayload__t}{payload\_t}}\ *raw,\ \mbox{\hyperlink{structllc__pdu__t}{llc\_pdu\_t}}\ *llc);}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ \textcolor{comment}{/*\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ PARSING\ SNAP\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ */}}
+\DoxyCodeLine{00176\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{eth__frame_8h_a0420d8f0fc06e0dedbbb5a44d161125b}{parse\_snap}}(\mbox{\hyperlink{structpayload__t}{payload\_t}}\ *raw,\ \mbox{\hyperlink{structsnap__pdu__t}{snap\_pdu\_t}}\ *snap);}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00180\ \textcolor{comment}{/*\ =========================================================================}}
+\DoxyCodeLine{00181\ \textcolor{comment}{\ *\ \ FUNZIONI\ DI\ SUPPORTO\ }}
+\DoxyCodeLine{00182\ \textcolor{comment}{\ *\ =========================================================================\ */}}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00198\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{eth__frame_8h_ab64b96624f0dc6128e5466e43a274935}{print\_mac}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structmac__addr__t}{mac\_addr\_t}}\ *mac,\ \textcolor{keywordtype}{char}\ separator,\ \textcolor{keywordtype}{int}\ decode);}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00205\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{eth__frame_8h_a044fa2e21c1df10afca1642efc8a81b4}{print\_eth\_summary}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structeth__frame__t}{eth\_frame\_t}}\ *eth);}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00212\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{eth__frame_8h_a33b06d191d18374870d525d453c188b6}{print\_llc\_summary}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structllc__pdu__t}{llc\_pdu\_t}}\ *llc);}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00219\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{eth__frame_8h_a92ffbb3871e3028667f7f28c79a4c473}{print\_snap\_summary}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structsnap__pdu__t}{snap\_pdu\_t}}\ *snap);}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00221\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ETH\_FRAME\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -1,0 +1,72 @@
+\doxysection{tables.\+h File Reference}
+\hypertarget{tables_8h}{}\label{tables_8h}\index{tables.h@{tables.h}}
+
+
+Lookup Table per OUI, SAP ed Ethertype.  
+
+
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{tables_8h_aaaa3a7b6206d510eb4d2c2ed7d8145b4}{protocol\+\_\+name}} (uint16\+\_\+t value)
+\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{tables_8h_a3df167e02b91554b0deefeb5fcb93c91}{oui\+\_\+lookup}} (uint32\+\_\+t oui)
+\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{tables_8h_a4451fe88173cffdc18c12c35b2735a1f}{sap\+\_\+lookup}} (uint8\+\_\+t sap)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Lookup Table per OUI, SAP ed Ethertype. 
+
+\begin{DoxyAuthor}{Author}
+Giordii (\href{mailto:admin@giordii.dev}{\texttt{admin@giordii.\+dev}}) 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2025-\/11-\/20 
+\end{DoxyDate}
+
+
+\label{doc-func-members}
+\Hypertarget{tables_8h_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{tables_8h_a3df167e02b91554b0deefeb5fcb93c91}\index{tables.h@{tables.h}!oui\_lookup@{oui\_lookup}}
+\index{oui\_lookup@{oui\_lookup}!tables.h@{tables.h}}
+\doxysubsubsection{\texorpdfstring{oui\_lookup()}{oui\_lookup()}}
+{\footnotesize\ttfamily \label{tables_8h_a3df167e02b91554b0deefeb5fcb93c91} 
+const char \texorpdfstring{$\ast$}{*} oui\+\_\+lookup (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{oui}{}\end{DoxyParamCaption})}
+
+Ricerca del produttore OUI
+\begin{DoxyItemize}
+\item oui \+: primi 24 bit del MAC address
+\end{DoxyItemize}
+
+Ritorna il nome del produttore se noto, altrimenti "{}\+Sconosciuto"{}. \Hypertarget{tables_8h_aaaa3a7b6206d510eb4d2c2ed7d8145b4}\index{tables.h@{tables.h}!protocol\_name@{protocol\_name}}
+\index{protocol\_name@{protocol\_name}!tables.h@{tables.h}}
+\doxysubsubsection{\texorpdfstring{protocol\_name()}{protocol\_name()}}
+{\footnotesize\ttfamily \label{tables_8h_aaaa3a7b6206d510eb4d2c2ed7d8145b4} 
+const char \texorpdfstring{$\ast$}{*} protocol\+\_\+name (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{value}{}\end{DoxyParamCaption})}
+
+Restituisce il nome del protocollo associato a un Ethertype / protocol\+\_\+id.
+\begin{DoxyItemize}
+\item value \+: Ethertype (Ethernet II) oppure protocol\+\_\+id (SNAP)
+\end{DoxyItemize}
+
+Ritorna una stringa costante (es. "{}\+IPv4"{}, "{}\+ARP"{}, "{}\+IPv6"{}) se noto, altrimenti "{}\+Sconosciuto"{}.
+
+L\textquotesingle{}implementazione userà internamente un array statico di \doxylink{structproto__desc__t}{proto\+\_\+desc\+\_\+t}. \Hypertarget{tables_8h_a4451fe88173cffdc18c12c35b2735a1f}\index{tables.h@{tables.h}!sap\_lookup@{sap\_lookup}}
+\index{sap\_lookup@{sap\_lookup}!tables.h@{tables.h}}
+\doxysubsubsection{\texorpdfstring{sap\_lookup()}{sap\_lookup()}}
+{\footnotesize\ttfamily \label{tables_8h_a4451fe88173cffdc18c12c35b2735a1f} 
+const char \texorpdfstring{$\ast$}{*} sap\+\_\+lookup (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{sap}{}\end{DoxyParamCaption})}
+
+Ricerca del nome SAP (LLC)
+\begin{DoxyItemize}
+\item sap \+: valore DSAP o SSAP
+\end{DoxyItemize}
+
+Ritorna il nome del SAP se noto, altrimenti "{}\+Sconosciuto"{}. 

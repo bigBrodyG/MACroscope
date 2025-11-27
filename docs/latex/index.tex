@@ -1,0 +1,189 @@
+\chapter{MACroscope }
+\hypertarget{index}{}\label{index}\index{MACroscope@{MACroscope}}
+\label{index_md_README}%
+\Hypertarget{index_md_README}%
+
+
+Parser di frame ethernet di livello 2 -\/ {\bfseries{FASE 2 Completata}}\hypertarget{index_autotoc_md2}{}\doxysubsection{\texorpdfstring{Struttura dei file}{Struttura dei file}}\label{index_autotoc_md2}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{eth\_frame.h\ \ \ \ -\/\ Tipi\ di\ dati\ e\ prototipi\ per\ parsing\ Ethernet/LLC/SNAP}
+\DoxyCodeLine{eth\_frame.c\ \ \ \ -\/\ Implementazione\ funzioni\ parsing\ e\ stampa}
+\DoxyCodeLine{tables.h\ \ \ \ \ \ \ -\/\ Prototipi\ per\ lookup\ OUI/SAP/Ethertype}
+\DoxyCodeLine{tables.c\ \ \ \ \ \ \ -\/\ Tabelle\ statiche\ di\ lookup}
+\DoxyCodeLine{main.c\ \ \ \ \ \ \ \ \ -\/\ Programma\ principale}
+\DoxyCodeLine{frames.txt\ \ \ \ \ -\/\ File\ di\ test\ con\ frame\ di\ esempio}
+\DoxyCodeLine{Makefile\ \ \ \ \ \ \ -\/\ Build\ automation}
+
+\end{DoxyCode}
+\hypertarget{index_autotoc_md3}{}\doxysubsection{\texorpdfstring{Struttura del frame Ethernet II}{Struttura del frame Ethernet II}}\label{index_autotoc_md3}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/+}
+\DoxyCodeLine{|\ Dst\ MAC\ (6B)\ \ |\ Src\ MAC\ (6B)\ \ \ |\ EtherType\ (2)\ |\ Payload\ (0..1500\ B)\ |\ CRC\ (4B)\ \ \ |}
+\DoxyCodeLine{+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/+}
+\DoxyCodeLine{byte\ 0..5\ \ \ \ \ \ \ byte\ 6..11\ \ \ \ \ \ \ \ 12..13\ \ \ \ \ \ \ \ \ \ 14..(n-\/1)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ opzionale}
+
+\end{DoxyCode}
+
+
+Esempi di Ether\+Type\+:
+\begin{DoxyItemize}
+\item {\ttfamily 0x0800} IPv4
+\item {\ttfamily 0x0806} ARP
+\item {\ttfamily 0x0842} Wake-\/\+ON-\/\+LAN
+\item {\ttfamily 0x8100} VLAN
+\item {\ttfamily 0x86\+DD} IPv6
+\end{DoxyItemize}\hypertarget{index_autotoc_md4}{}\doxysubsection{\texorpdfstring{Requisiti minimi}{Requisiti minimi}}\label{index_autotoc_md4}
+
+\begin{DoxyItemize}
+\item {\bfseries{Input}}\+: stringa di byte esadecimali da tastiera, ammessi spazi o contigui (es. {\ttfamily FF FF FF FF FF FF 00 11 22 33 44 55 08 06 ...} oppure {\ttfamily FFFFFFFFFFFF0011223344550806...}).
+\item {\bfseries{Validazione}}\+:
+\begin{DoxyItemize}
+\item numero di nibble pari;
+\item almeno 14 byte totali;
+\item payload ≤ 1500 byte (quindi len ≥ 14 e len-\/14 ≤ 1500).
+\end{DoxyItemize}
+\item {\bfseries{Parsing}}\+: estrarre campi come da schema "{}\+Struttura Frame Ethernet II"{} (Ether\+Type è big-\/endian)
+\end{DoxyItemize}\hypertarget{index_autotoc_md5}{}\doxysubsection{\texorpdfstring{Esempi di input (per test)}{Esempi di input (per test)}}\label{index_autotoc_md5}
+{\bfseries{ARP (broadcast, Ether\+Type 0x0806)}} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{FF\ FF\ FF\ FF\ FF\ FF\ 00\ 11\ 22\ 33\ 44\ 55\ 08\ 06\ 00\ 01\ 08\ 00\ 06\ 04\ 00\ 01\ 00\ 11\ 22\ 33\ 44\ 55\ C0\ A8\ 01\ 0A\ 00\ 00\ 00\ 00\ 00\ 00\ C0\ A8\ 01\ 01}
+
+\end{DoxyCode}
+
+
+{\bfseries{IPv4 (0x0800)}} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{AA\ BB\ CC\ DD\ EE\ FF\ 00\ 11\ 22\ 33\ 44\ 55\ 08\ 00\ 45\ 00\ 00\ 14\ 00\ 00\ 40\ 00\ 40\ 06\ 00\ 00\ C0\ A8\ 01\ 0A\ C0\ A8\ 01\ 01}
+
+\end{DoxyCode}
+
+
+...fatevi generare altri frame da LLM\hypertarget{index_autotoc_md6}{}\doxysubsubsection{\texorpdfstring{Esempio di output\+:}{Esempio di output\+:}}\label{index_autotoc_md6}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Inserisci\ frame\ in\ esadecimale\ (byte\ separati\ da\ spazi\ o\ contigui):}
+\DoxyCodeLine{FF\ FF\ FF\ FF\ FF\ FF\ 00\ 11\ 22\ 33\ 44\ 55\ 08\ 06\ 00\ 01\ 08\ 00\ 06\ 04\ 00\ 01\ 00\ 11\ 22\ 33\ 44\ 55\ C0\ A8\ 01\ 0A\ 00\ 00\ 00\ 00\ 00\ 00\ C0\ A8\ 01\ 01}
+\DoxyCodeLine{}
+\DoxyCodeLine{===\ FRAME\ ETHERNET\ DECODIFICATO\ ===}
+\DoxyCodeLine{Destinazione\ :\ FF:FF:FF:FF:FF:FF\ \ (Broadcast)\ }
+\DoxyCodeLine{Sorgente\ \ \ \ \ :\ 00:11:22:33:44:55\ \ (gruppo\ universale)}
+\DoxyCodeLine{EtherType\ \ \ \ :\ 0x0806\ (ARP)}
+\DoxyCodeLine{Payload\ size\ :\ 28\ bytes}
+\DoxyCodeLine{}
+\DoxyCodeLine{Payload\ (esadecimale/ASCII):}
+\DoxyCodeLine{00\ 01\ 08\ 00\ 06\ 04\ 00\ 01\ 00\ 11\ 22\ 33\ 44\ 55\ C0\ A8\ 01\ 0A}
+\DoxyCodeLine{00\ 00\ 00\ 00\ 00\ 00\ C0\ A8\ 01\ 01}
+\DoxyCodeLine{-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}
+\DoxyCodeLine{Frame\ totale:\ 42\ byte}
+
+\end{DoxyCode}
+\hypertarget{index_autotoc_md7}{}\doxysubsubsection{\texorpdfstring{Linux (nativo)}{Linux (nativo)}}\label{index_autotoc_md7}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{make\ \ \ \ \ \ \ \ \ \ \ \ \ \ \#\ Compila\ per\ Linux}
+\DoxyCodeLine{make\ run\ \ \ \ \ \ \ \ \ \ \#\ Compila\ ed\ esegue\ con\ frames.txt}
+
+\end{DoxyCode}
+\hypertarget{index_autotoc_md8}{}\doxysubsubsection{\texorpdfstring{Windows (cross-\/compilation con Min\+GW)}{Windows (cross-\/compilation con Min\+GW)}}\label{index_autotoc_md8}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{make\ windows\ \ \ \ \ \ \#\ Compila\ macroscope.exe\ per\ Windows}
+
+\end{DoxyCode}
+\hypertarget{index_autotoc_md9}{}\doxysubsubsection{\texorpdfstring{Entrambe le piattaforme}{Entrambe le piattaforme}}\label{index_autotoc_md9}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{make\ all-\/platforms\ \ \ \#\ Compila\ sia\ Linux\ che\ Windows}
+
+\end{DoxyCode}
+\hypertarget{index_autotoc_md10}{}\doxysubsection{\texorpdfstring{Pulizia}{Pulizia}}\label{index_autotoc_md10}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{make\ clean\ \ \ \ \ \ \ \ \#\ Rimuove\ tutti\ gli\ eseguibili\ (Linux\ +\ Windows)}
+\DoxyCodeLine{make\ win-\/clean\ \ \ \ \#\ Rimuove\ solo\ l'eseguibile\ Windows}
+
+\end{DoxyCode}
+\hypertarget{index_autotoc_md11}{}\doxysubsection{\texorpdfstring{Esecuzione}{Esecuzione}}\label{index_autotoc_md11}
+\hypertarget{index_autotoc_md12}{}\doxysubsubsection{\texorpdfstring{Su Linux}{Su Linux}}\label{index_autotoc_md12}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\ Con\ file\ di\ test}
+\DoxyCodeLine{./macroscope\ frames.txt}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Da\ input\ tastiera}
+\DoxyCodeLine{./macroscope}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Con\ help}
+\DoxyCodeLine{./macroscope\ -\/-\/help}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\ Con\ pipe}
+\DoxyCodeLine{echo\ "{}AA\ BB\ CC\ DD\ EE\ FF\ 00\ 11\ 22\ 33\ 44\ 55\ 08\ 00\ ..."{}\ |\ ./macroscope}
+
+\end{DoxyCode}
+\hypertarget{index_autotoc_md13}{}\doxysubsubsection{\texorpdfstring{Su Windows}{Su Windows}}\label{index_autotoc_md13}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{REM\ Con\ file\ di\ test}
+\DoxyCodeLine{macroscope.exe\ frames.txt}
+\DoxyCodeLine{}
+\DoxyCodeLine{REM\ Da\ input\ tastiera}
+\DoxyCodeLine{macroscope.exe}
+\DoxyCodeLine{}
+\DoxyCodeLine{REM\ Con\ help}
+\DoxyCodeLine{macroscope.exe\ -\/-\/help}
+
+\end{DoxyCode}
+\hypertarget{index_autotoc_md14}{}\doxysubsection{\texorpdfstring{Requisiti per cross-\/compilation Windows}{Requisiti per cross-\/compilation Windows}}\label{index_autotoc_md14}
+Per compilare l\textquotesingle{}eseguibile Windows su Linux è necessario Min\+GW\+:
+
+{\bfseries{Debian/\+Ubuntu\+:}} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{sudo\ apt\ install\ mingw-\/w64}
+
+\end{DoxyCode}
+
+
+{\bfseries{Arch Linux\+:}} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{sudo\ pacman\ -\/S\ mingw-\/w64-\/gcc}
+
+\end{DoxyCode}
+
+
+{\bfseries{Fedora\+:}} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{sudo\ dnf\ install\ mingw64-\/gcc}
+
+\end{DoxyCode}
+\hypertarget{index_autotoc_md15}{}\doxysection{\texorpdfstring{Funzionalità FASE 2}{Funzionalità FASE 2}}\label{index_autotoc_md15}
+✅ Lettura frame da file di testo o stdin ~\newline
+ ✅ Conversione stringa esadecimale → byte buffer ~\newline
+ ✅ Parsing header Ethernet (MAC dst/src, Ethertype) ~\newline
+ ✅ Decodifica MAC con rilevamento Broadcast/\+Multicast/\+Unicast ~\newline
+ ✅ Lookup OUI per identificazione produttore ~\newline
+ ✅ Riconoscimento tipo frame (Ethernet II / 802.\+3 LLC / 802.\+3 SNAP) ~\newline
+ ✅ Parsing LLC (DSAP, SSAP, Control) ~\newline
+ ✅ Parsing SNAP (OUI, Protocol ID) ~\newline
+ ✅ Lookup SAP per protocolli LLC ~\newline
+ ✅ Lookup Ethertype per protocollo incapsulato ~\newline
+ ✅ Gestione commenti e righe vuote nei file di input ~\newline
+ ✅ Interfaccia CLI con help ({\ttfamily -\/h}, {\ttfamily -\/-\/help}) ~\newline
+ ✅ Compilazione per Linux e Windows (cross-\/platform) ~\newline
+\hypertarget{index_autotoc_md16}{}\doxysection{\texorpdfstring{Tipi di Frame Supportati}{Tipi di Frame Supportati}}\label{index_autotoc_md16}
+
+\begin{DoxyTable}{3}{}{}{1}
+\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Tipo  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Identificazione  &\SetCell{c,bg=\tableheadbgcolor,font=\bfseries}Descrizione  \\
+{\bfseries{Ethernet II}}  &Type/\+Length ≥ 0x0600  &Frame standard con Ethertype  \\
+{\bfseries{802.\+3 LLC}}  &Type/\+Length \texorpdfstring{$<$}{<} 0x0600  &Frame IEEE 802.\+3 con LLC header  \\
+{\bfseries{802.\+3 SNAP}}  &LLC con DSAP=SSAP=0x\+AA  &Frame 802.\+3 con SNAP encapsulation  \\
+\end{DoxyTable}
+\hypertarget{index_autotoc_md17}{}\doxysection{\texorpdfstring{File di Test}{File di Test}}\label{index_autotoc_md17}
+Il file {\ttfamily \doxylink{frames_8txt}{frames.\+txt}} contiene 9 frame di esempio\+:
+\begin{DoxyItemize}
+\item 4 frame Ethernet II (ARP, IPv4, ICMP, IPv6)
+\item 2 frame 802.\+3 LLC (Net\+BIOS, Spanning Tree)
+\item 3 frame 802.\+3 SNAP (IPv4, ARP, Apple\+Talk)
+\end{DoxyItemize}\hypertarget{index_autotoc_md18}{}\doxysection{\texorpdfstring{Licenza}{Licenza}}\label{index_autotoc_md18}
+MIT 

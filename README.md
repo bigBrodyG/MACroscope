@@ -2,14 +2,6 @@
 
 Parser di frame ethernet di livello 2 - **FASE 2 Completata**
 
-## Implementazione
-
-Il progetto è stato implementato seguendo le specifiche del professore per la **FASE 2**, utilizzando:
-
-- Struttura modulare con file separati (`eth_frame.h/c`, `tables.h/c`, `main.c`)
-- Strutture dati del professore (`payload_t`, `mac_addr_t`, `eth_frame_t`, etc.)
-- Tabelle di lookup per OUI (produttori MAC), SAP (LLC) ed Ethertype
-- Supporto per lettura da file o stdin con gestione commenti
 
 ### Struttura dei file
 
@@ -22,21 +14,6 @@ main.c         - Programma principale
 frames.txt     - File di test con frame di esempio
 Makefile       - Build automation
 ```
-
-## Richiesta
-
-Analizzare i frame ethernet e restituire informazioni relative come MAC sorgente, destinatario e EthType.
-
-Leggere da tastiera un frame Ethernet II in esadecimale, verificarne la validità e popolare una struct con:
-
-- MAC destinazione (6 byte),
-- MAC sorgente (6 byte),
-- EtherType (2 byte, big-endian),
-- payload (0..1500 byte).
-
-Stampare poi una vista formattata dei campi.
-
-**(Opzionale)**: se passato un nome file da riga di comando, leggere la stringa esadecimale da file .txt
 
 ### Struttura del frame Ethernet II
 
@@ -96,11 +73,6 @@ Payload (esadecimale/ASCII):
 Frame totale: 42 byte
 ```
 
-## Come usarlo
-
-Compilare ed eseguire il programma su sistemi Unix-like:
-
-### Compilazione
 
 #### Linux (nativo)
 ```bash
